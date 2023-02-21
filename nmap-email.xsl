@@ -47,17 +47,16 @@
 </xsl:template>
 <xsl:template match="/nmaprun">
   <a name="top" />
-    <h1 style="color:#fff; background-color:#000842;">Nmap Scan Report - Scanned at <xsl:value-of select="$start" /></h1>
-    <h3><a href="#scansummary">Scan Summary</a></h3>
-    <ul>
+    <h1 style="color:#fff;background-color:#000842;text-align:left;font-size:2em;width:100%;font-family:Arial;">Nmap Scan Report - Scanned at <xsl:value-of select="$start" /></h1>
+    <h3 style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><a href="#scansummary">Scan Summary</a></h3>
             <xsl:if test="prescript/script/@id">
-        <li>
+        <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
           <a href="#prescript">Pre-Scan Script Output</a>
         </li>
       </xsl:if>
       <xsl:for-each select="host">
         <xsl:sort select="substring ( address/@addr, 1, string-length ( substring-before ( address/@addr, '.' ) ) )* (256*256*256) + substring ( substring-after ( address/@addr, '.' ), 1, string-length ( substring-before ( substring-after ( address/@addr, '.' ), '.' ) ) )* (256*256) + substring ( substring-after ( substring-after ( address/@addr, '.' ), '.' ), 1, string-length ( substring-before ( substring-after ( substring-after ( address/@addr, '.' ), '.' ), '.' ) ) ) * 256 + substring ( substring-after ( substring-after ( substring-after ( address/@addr, '.' ), '.' ), '.' ), 1 )" order="ascending" data-type="number"/>
-        <li>
+        <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
           <xsl:element name="a">
             <xsl:attribute name="href">#host_<xsl:value-of select="translate(address/@addr, '.', '_') " /></xsl:attribute>
             <xsl:attribute name="class">
@@ -88,28 +87,27 @@
         </li>
       </xsl:for-each>
       <xsl:if test="postscript/script/@id">
-        <li> <xsl:text> | </xsl:text> <a href="#postscript">Post-Scan Script Output</a> </li>
+        <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:text></xsl:text><a href="#postscript">Post-Scan Script Output</a></li>
       </xsl:if>
-    </ul>
     <xsl:element name="a">
       <xsl:attribute name="name">scansummary</xsl:attribute>
     </xsl:element>
-    <h2 style="color:#fff; background-color:#000842;">Scan Summary</h2>
-    <p>
+    <h2 style="color:#000; margin:3px 0 3px 0;font-size:16px;line-height:24px;font-family:Arial;">Scan Summary</h2>
+    <p  style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
       Nmap <xsl:value-of select="@version" /> was initiated at <xsl:value-of select="$start" /> with these arguments:<br/>
       <i><xsl:value-of select="@args" /></i><br/>
     </p>
-    <p>
+    <p  style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
     Verbosity: <xsl:value-of select="verbose/@level" />; Debug level <xsl:value-of select="debugging/@level" />
     </p>
-    <p>
+    <p  style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
     <xsl:value-of select="/nmaprun/runstats/finished/@summary" />
     </p>
     <xsl:apply-templates select="prescript"/>
     <xsl:apply-templates select="host">
       <xsl:sort select="substring ( address/@addr, 1, string-length ( substring-before ( address/@addr, '.' ) ) )* (256*256*256) + substring ( substring-after ( address/@addr, '.' ), 1, string-length ( substring-before ( substring-after ( address/@addr, '.' ), '.' ) ) )* (256*256) + substring ( substring-after ( substring-after ( address/@addr, '.' ), '.' ), 1, string-length ( substring-before ( substring-after ( substring-after ( address/@addr, '.' ), '.' ), '.' ) ) ) * 256 + substring ( substring-after ( substring-after ( substring-after ( address/@addr, '.' ), '.' ), '.' ), 1 )" order="ascending" data-type="number"/>
     </xsl:apply-templates>
-    <a href="#top"><h3>Go to top</h3></a>
+    <a href="#top"><h3 style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Go to top</h3></a>
     <xsl:apply-templates select="postscript"/>
 </xsl:template>
 <!-- ............................................................ -->
@@ -122,7 +120,7 @@
   </xsl:element>
   <xsl:choose>
     <xsl:when test="status/@state = 'up'">
-      <h2 style="color:#fff; background-color:#000842;" class="up"><xsl:value-of select="address/@addr"/>
+      <h2 style="color:#fff; background-color:#000842; margin:1px 0 1px 0;font-size:24px;line-height:36px;font-family:Arial;" class="up"><xsl:value-of select="address/@addr"/>
       <xsl:if test="count(hostnames/hostname) > 0">
         <xsl:for-each select="hostnames/hostname">
           <xsl:sort select="@name" order="ascending" data-type="text"/>
@@ -133,7 +131,7 @@
       </h2>
     </xsl:when>
     <xsl:otherwise>
-      <h2 style="color:#fff; background-color:#000842;" class="down"><xsl:value-of select="address/@addr"/>
+      <h2 style="color:#fff; background-color:#000842; margin:1px 0 1px 0;font-size:24px;line-height:36px;font-family:Arial;" class="down"><xsl:value-of select="address/@addr"/>
       <xsl:if test="count(hostnames/hostname) > 0">
         <xsl:for-each select="hostnames/hostname">
           <xsl:sort select="@name" order="ascending" data-type="text"/>
@@ -150,14 +148,12 @@
         <xsl:attribute name="class">unhidden</xsl:attribute>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:attribute name="class">hidden</xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
   <xsl:if test="count(address) > 0">
-    <h3 style="color:#fff; background-color:#003366;">Address</h3>
-      <ul>
+    <h3 style="color:#fff; background-color:#003366; margin:2px 0 2px 0;font-size:16px;line-height:24px;font-family:Arial;">Address</h3>
         <xsl:for-each select="address">
-          <li><xsl:value-of select="@addr"/>
+          <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@addr"/>
             <xsl:if test="@vendor">
               <xsl:text> - </xsl:text>
                 <xsl:value-of select="@vendor"/>
@@ -166,49 +162,47 @@
             (<xsl:value-of select="@addrtype"/>)
           </li>
         </xsl:for-each>
-      </ul>
   </xsl:if>
   <xsl:apply-templates/>
   <xsl:element name="p">
     <xsl:attribute name="id">metrics_<xsl:value-of select="$var_address"/></xsl:attribute>
-    <xsl:attribute name="class">hidden</xsl:attribute>
-    <table cellspacing="1">
-      <tr style="color:#000; background-color:#ddd;" class="head">
-        <td>Metric</td>
-        <td>Value</td>
+    <table cellspacing="0.5">
+      <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;font-weight: bold;line-height:16px;font-family:Arial;">Metric</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;font-weight: bold;line-height:16px;font-family:Arial;">Value</p></td>
       </tr>
       <tr>
-        <td>Ping Results</td>
-        <td><xsl:value-of select="status/@reason"/>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Ping Results</p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="status/@reason"/>
           <xsl:if test="status/@reasonsrc">
             <xsl:text> from </xsl:text>
             <xsl:value-of select="status/@reasonsrc"/>
           </xsl:if>
-        </td>
+        </p></td>
       </tr>
     <xsl:if test="uptime/@seconds != ''">
       <tr>
-        <td>System Uptime</td>
-        <td><xsl:value-of select="uptime/@seconds" /> seconds  (last reboot: <xsl:value-of select="uptime/@lastboot" />)
-        </td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">System Uptime</p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="uptime/@seconds" /> seconds  (last reboot: <xsl:value-of select="uptime/@lastboot" />)
+        </p></td>
       </tr>
     </xsl:if>
     <xsl:if test="distance/@value != ''">
       <tr>
-        <td>Network Distance</td>
-        <td><xsl:value-of select="distance/@value" /> hops</td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Network Distance</p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="distance/@value" /> hops</p></td>
       </tr>
     </xsl:if>
     <xsl:if test="tcpsequence/@index != ''">
       <tr>
-        <td>TCP Sequence Prediction</td>
-        <td>Difficulty=<xsl:value-of select="tcpsequence/@index" /> (<xsl:value-of select="tcpsequence/@difficulty" />)</td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">TCP Sequence Prediction</p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Difficulty=<xsl:value-of select="tcpsequence/@index" /> (<xsl:value-of select="tcpsequence/@difficulty" />)</p></td>
       </tr>
     </xsl:if>
     <xsl:if test="ipidsequence/@class != ''">
       <tr>
-        <td>IP ID Sequence Generation</td>
-        <td><xsl:value-of select="ipidsequence/@class" /></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">IP ID Sequence Generation</p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="ipidsequence/@class" /></p></td>
       </tr>
     </xsl:if>
       </table>
@@ -219,28 +213,28 @@
 <!-- hostnames -->
 <!-- ............................................................ -->
 <xsl:template match="hostnames">
-  <xsl:if test="hostname/@name != ''"><h3 style="color:#fff; background-color:#003366;">Hostnames</h3><ul>	<xsl:apply-templates/></ul></xsl:if>
+  <xsl:if test="hostname/@name != ''"><h3 style="color:#fff; background-color:#003366; margin:2px 0 2px 0;font-size:16px;line-height:24px;font-family:Arial;">Hostnames</h3><xsl:apply-templates/></xsl:if>
 </xsl:template>
 <!-- ............................................................ -->
 <!-- hostname -->
 <!-- ............................................................ -->
 <xsl:template match="hostname">
-  <li><xsl:value-of select="@name"/> (<xsl:value-of select="@type"/>)</li>
+  <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@name"/> (<xsl:value-of select="@type"/>)</li>
 </xsl:template>
 <!-- ............................................................ -->
 <!-- ports -->
 <!-- ............................................................ -->
 <xsl:template match="ports">
   <xsl:variable name="var_address" select="../address/@addr" />
-  <h3 style="color:#fff; background-color:#003366;">Ports</h3>
+  <h3 style="color:#fff; background-color:#003366; margin:2px 0 2px 0;font-size:16px;line-height:24px;font-family:Arial;">Ports</h3>
   <xsl:for-each select="extraports">
     <xsl:if test="@count > 0">
-      <p>The <xsl:value-of select="@count" /> ports scanned but not shown below are in state: <b><xsl:value-of select="@state" /></b></p>
+      <p  style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">The <xsl:value-of select="@count" /> ports scanned but not shown below are in state: <b><xsl:value-of select="@state" /></b></p>
     </xsl:if>
-    <ul>
+    <ul style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
       <xsl:for-each select="extrareasons">
         <xsl:if test="@count > 0">
-          <li><p><xsl:value-of select="@count" /> ports replied with: <b><xsl:value-of select="@reason" /></b></p></li>
+          <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><p  style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@count" /> ports replied with: <b><xsl:value-of select="@reason" /></b></p></li>
         </xsl:if>
       </xsl:for-each>
     </ul>
@@ -252,14 +246,15 @@
     <xsl:element name="table">
       <xsl:attribute name="id">porttable_<xsl:value-of select="$var_address"/></xsl:attribute>
       <xsl:attribute name="cellspacing">1</xsl:attribute>
-    <tr style="color:#000; background-color:#ddd;" class="head">
-        <td colspan="2">Port</td>
-        <td>State</td>
-        <td>Service</td>
-        <td>Reason</td>
-        <td>Product</td>
-        <td>Version</td>
-        <td>Extra info</td>
+    <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Port</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">State</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Service</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Reason</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Product</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Version</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Info</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;font-weight: bold;">Info</p></td>
       </tr>
       <xsl:apply-templates/>
     </xsl:element>
@@ -272,79 +267,79 @@
   <xsl:choose>
     <xsl:when test="state/@state = 'open'">
       <tr class="open">
-        <td><xsl:value-of select="@portid" /></td>
-        <td><xsl:value-of select="@protocol" /></td>
-        <td><xsl:value-of select="state/@state" /></td>
-        <td><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></td>
-	<td><xsl:value-of select="state/@reason"/>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@portid" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@protocol" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@state" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></p></td>
+	<td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@reason"/>
           <xsl:if test="state/@reason_ip">
             <xsl:text> from </xsl:text>
             <xsl:value-of select="state/@reason_ip"/>
           </xsl:if>
-        </td>
-        <td><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></td>
+        </p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></p></td>
       </tr>
       <xsl:for-each select="script">
         <tr class="script">
-          <td></td>
-          <td><xsl:value-of select="@id"/> <xsl:text>&#xA0;</xsl:text></td>
-          <td colspan="6">
+          <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"></p></td>
+          <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@id"/> <xsl:text>&#xA0;</xsl:text></p></td>
+          <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
             <pre><xsl:value-of select="@output"/> <xsl:text>&#xA0;</xsl:text></pre>
-          </td>
+          </p></td>
         </tr>
       </xsl:for-each>
     </xsl:when>
     <xsl:when test="state/@state = 'filtered'">
       <tr class="filtered">
-        <td><xsl:value-of select="@portid" /></td>
-        <td><xsl:value-of select="@protocol" /></td>
-        <td><xsl:value-of select="state/@state" /></td>
-        <td><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="state/@reason"/>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@portid" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@protocol" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@state" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@reason"/>
           <xsl:if test="state/@reason_ip">
             <xsl:text> from </xsl:text>
             <xsl:value-of select="state/@reason_ip"/>
           </xsl:if>
-        </td>
-        <td><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></td>
+        </p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></p></td>
       </tr>
     </xsl:when>
     <xsl:when test="state/@state = 'closed'">
       <tr class="closed">
-        <td><xsl:value-of select="@portid" /></td>
-        <td><xsl:value-of select="@protocol" /></td>
-        <td><xsl:value-of select="state/@state" /></td>
-        <td><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="state/@reason"/>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@portid" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@protocol" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@state" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@reason"/>
           <xsl:if test="state/@reason_ip">
             <xsl:text> from </xsl:text>
             <xsl:value-of select="state/@reason_ip"/>
           </xsl:if>
-        </td>
-        <td><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></td>
+        </p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></p></td>
       </tr>
     </xsl:when>
     <xsl:otherwise>
       <tr>
-        <td><xsl:value-of select="@portid" /></td>
-        <td><xsl:value-of select="@protocol" /></td>
-        <td><xsl:value-of select="state/@state" /></td>
-        <td><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="state/@reason"/>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@portid" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@protocol" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@state" /></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@name" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="state/@reason"/>
           <xsl:if test="state/@reason_ip">
             <xsl:text> from </xsl:text>
             <xsl:value-of select="state/@reason_ip"/>
           </xsl:if>
-	</td>
-        <td><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></td>
-        <td><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></td>
+	</p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@product" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@version" /><xsl:text>&#xA0;</xsl:text></p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="service/@extrainfo" /><xsl:text>&#xA0;</xsl:text></p></td>
       </tr>
     </xsl:otherwise>
   </xsl:choose>
@@ -353,16 +348,14 @@
 <!-- os -->
 <!-- ............................................................ -->
 <xsl:template match="os">
-  <h3 style="color:#fff; background-color:#003366;">Remote Operating System Detection</h3>
-  <xsl:if test="count(osmatch) = 0"><p>Unable to identify operating system.</p></xsl:if>
-  <ul>
+  <h3 style="color:#fff; background-color:#003366; margin:2px 0 2px 0;font-size:16px;font-weight: bold;line-height:24px;font-family:Arial;">Remote Operating System Detection</h3>
+  <xsl:if test="count(osmatch) = 0"><p  style="margin:1px 0 1px 0;font-size:12px;font-weight: bold;line-height:16px;font-family:Arial;">Unable to identify operating system.</p></xsl:if>
     <xsl:for-each select="portused">
-      <li>Used port: <b><xsl:value-of select="@portid" />/<xsl:value-of select="@proto" /> </b> (<b><xsl:value-of select="@state" /></b>)  </li>
+      <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Used port: <b><xsl:value-of select="@portid" />/<xsl:value-of select="@proto" /> </b> (<b><xsl:value-of select="@state" /></b>)  </li>
     </xsl:for-each>
     <xsl:for-each select="osmatch">
-      <li>OS match: <b><xsl:value-of select="@name" /> </b> (<b><xsl:value-of select="@accuracy" />%</b>)</li>
+      <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">OS match: <b><xsl:value-of select="@name" /> </b> (<b><xsl:value-of select="@accuracy" />%</b>)</li>
     </xsl:for-each>
-  </ul>
   <xsl:apply-templates select="osfingerprint"/>
 </xsl:template>
 <!-- ............................................................ -->
@@ -372,32 +365,31 @@
   <xsl:variable name="var_address" select="../../address/@addr" /> 
   <xsl:choose>
     <xsl:when test="count(../osmatch)=0">
-      <ul>
-        <li>Cannot determine exact operating system.  Fingerprint provided below.</li>
-        <li>If you know what OS is running on it, see https://nmap.org/submit/</li>
+      <ul style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
+        <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Cannot determine exact operating system.  Fingerprint provided below.</li>
+        <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">If you know what OS is running on it, see https://nmap.org/submit/</li>
       </ul>
-      <table cellspacing="1">
-        <tr style="color:#000; background-color:#ddd;" class="head">
-          <td>Operating System fingerprint</td>
+      <table cellspacing="0.5">
+        <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+          <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;font-weight: bold;line-height:16px;font-family:Arial;">Operating System fingerprint</p></td>
         </tr>
         <tr>
-          <td><pre><xsl:value-of select="@fingerprint" /></pre></td>
+          <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><pre><xsl:value-of select="@fingerprint" /></pre></p></td>
         </tr>
       </table>
     </xsl:when>
     <xsl:otherwise>
-      <ul>
-        <li class="noprint">OS identified but the fingerprint was requested at scan time.</li>
+      <ul style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
+        <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">OS identified but the fingerprint was requested at scan time.</li>
       </ul>
       <xsl:element name="p">
         <xsl:attribute name="id">osblock_<xsl:value-of select="$var_address"/></xsl:attribute>
-        <xsl:attribute name="class">hidden</xsl:attribute>
-        <table class="noprint" cellspacing="1">
-          <tr style="color:#000; background-color:#ddd;" class="head">
-            <td>Operating System fingerprint</td>
+        <table class="noprint" cellspacing="0.5">
+          <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+            <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Operating System fingerprint</p></td>
           </tr>
           <tr>
-            <td><pre><xsl:value-of select="@fingerprint" /></pre></td>
+            <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><pre><xsl:value-of select="@fingerprint" /></pre></p></td>
           </tr>
         </table>      
       </xsl:element>
@@ -411,22 +403,22 @@
   <xsl:element name="a">
     <xsl:attribute name="name">prescript</xsl:attribute>
   </xsl:element>
-  <h2 style="color:#fff; background-color:#000842;">Pre-Scan Script Output</h2>
+  <h2 style="color:#fff; background-color:#000842; margin:3px 0 3px 0;font-size:24px;line-height:36px;font-family:Arial;">Pre-Scan Script Output</h2>
   <table>
-    <tr style="color:#000; background-color:#ddd;" class="head">
-      <td>Script Name</td>
-      <td>Output</td>
+    <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+      <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Script Name</p></td>
+      <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Output</p></td>
     </tr>
     <xsl:for-each select="script">
     <tr class="script">
-      <td>
+      <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
         <xsl:value-of select="@id"/> <xsl:text>&#xA0;</xsl:text>
-      </td>
-      <td>
+      </p></td>
+      <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
         <pre>
           <xsl:value-of select="@output"/> <xsl:text></xsl:text>
         </pre>
-      </td>
+      </p></td>
     </tr>
   </xsl:for-each>
   </table>
@@ -438,22 +430,22 @@
   <xsl:element name="a">
     <xsl:attribute name="name">postscript</xsl:attribute>
   </xsl:element>
-  <h2 style="color:#fff; background-color:#000842;">Post-Scan Script Output</h2>
+  <h2 style="color:#fff; background-color:#000842; margin:3px 0 3px 0;font-size:24px;line-height:36px;font-family:Arial;">Post-Scan Script Output</h2>
   <table>
-    <tr style="color:#000; background-color:#ddd;" class="head">
-      <td>Script Name</td>
-      <td>Output</td>
+    <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+      <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Script Name</p></td>
+      <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Output</p></td>
     </tr>
   <xsl:for-each select="script">
     <tr class="script">
-      <td>
+      <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
         <xsl:value-of select="@id"/> <xsl:text>&#xA0;</xsl:text>
-      </td>
-      <td>
+      </p></td>
+      <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
         <pre>
           <xsl:value-of select="@output"/> <xsl:text></xsl:text>
         </pre>
-      </td>
+      </p></td>
     </tr>
   </xsl:for-each>
   </table>
@@ -462,22 +454,22 @@
 <!-- Host Script Scan -->
 <!-- ............................................................ -->
 <xsl:template match="hostscript">
-  <h3 style="color:#fff; background-color:#003366;">Host Script Output</h3>
+  <h3 style="color:#fff; background-color:#003366; margin:2px 0 2px 0;font-size:16px;line-height:24px;font-family:Arial;">Host Script Output</h3>
     <table>
-      <tr style="color:#000; background-color:#ddd;" class="head">
-        <td>Script Name</td>
-        <td>Output</td>
+      <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Script Name</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Output</p></td>
       </tr>
   <xsl:for-each select="script">
       <tr class="script">
-        <td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
           <xsl:value-of select="@id"/> <xsl:text>&#xA0;</xsl:text>
-        </td>
-        <td>
+        </p></td>
+        <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
           <pre>
             <xsl:value-of select="@output"/> <xsl:text>&#xA0;</xsl:text>
           </pre>
-        </td>
+        </p></td>
       </tr>
   </xsl:for-each>
     </table>
@@ -486,9 +478,9 @@
 <!-- smurf -->
 <!-- ............................................................ -->
 <xsl:template match="smurf">
-  <xsl:if test="@responses != ''"><h3 style="color:#fff; background-color:#003366;">Smurf Responses</h3>
-    <ul>
-      <li><xsl:value-of select="@responses" /> responses counted</li>
+  <xsl:if test="@responses != ''"><h3 style="color:#fff; background-color:#003366; margin:2px 0 2px 0;font-size:16px;line-height:24px;font-family:Arial;">Smurf Responses</h3>
+    <ul style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">
+      <li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@responses" /> responses counted</li>
     </ul>
   </xsl:if>
 </xsl:template>
@@ -500,41 +492,42 @@
   <xsl:variable name="var_address" select="../address/@addr" /> 
   <xsl:element name="p">
     <xsl:attribute name="id">trace_<xsl:value-of select="$var_address"/></xsl:attribute>
-    <xsl:attribute name="class">hidden</xsl:attribute>
     <xsl:choose>
       <xsl:when test="@port">
-        <ul><li>Traceroute data generated using port <xsl:value-of select="@port" />/<xsl:value-of select="@proto" /></li></ul>
+        <ul style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><li style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Traceroute data generated using port <xsl:value-of select="@port" />/<xsl:value-of select="@proto" /></li></ul>
       </xsl:when>
     </xsl:choose>
-    <table cellspacing="1">
-      <tr style="color:#000; background-color:#ddd;" class="head">
-        <td>Hop</td>
-        <td>Rtt</td>
-        <td>IP</td>
-        <td>Host</td>
+    <table cellspacing="0.5">
+      <tr style="color:#000;background-color:#ddd;text-align:left;padding:0;vertical-align:top;" class="head">
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Hop</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Rtt</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">IP</p></td>
+        <td style="color:#000;background-color:#ddd;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">Host</p></td>
       </tr>
       <xsl:for-each select="hop">
         <xsl:choose>
             <xsl:when test="@rtt = '--'">
               <tr class="filtered">
-                <td><xsl:value-of select="@ttl" /></td>
-                <td>--</td>
-                <td><xsl:value-of select="@ipaddr" /></td>
-                <td><xsl:value-of select="@host" /></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@ttl" /></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;">--</p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@ipaddr" /></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@host" /></p></td>
               </tr>
             </xsl:when>
             <xsl:when test="@rtt > 0">
               <tr class="open">
-                <td><xsl:value-of select="@ttl" /></td>
-                <td><xsl:value-of select="@rtt" /></td>
-                <td><xsl:value-of select="@ipaddr" /></td>
-                <td><xsl:value-of select="@host" /></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@ttl" /></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@rtt" /></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@ipaddr" /></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@host" /></p></td>
               </tr>
             </xsl:when>
             <xsl:otherwise>
               <tr class="closed">
-                <td><xsl:value-of select="@ttl" /></td>
-                <td></td><td></td><td></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"><xsl:value-of select="@ttl" /></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"></p></td>
+                <td style="color:#000;background-color:#fff;text-align:left;"><p style="margin:1px 0 1px 0;font-size:12px;line-height:16px;font-family:Arial;"></p></td>
               </tr>
             </xsl:otherwise>
           </xsl:choose>
