@@ -37,7 +37,7 @@
     THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ========================================================================== -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
-<xsl:output  method="html" indent="yes" encoding="UTF-8"/>
+<xsl:output  method="html" indent="yes" encoding="iso-8859-1"/>
 <xsl:variable name="start"><xsl:value-of select="/nmaprun/@startstr" /></xsl:variable>
 <xsl:variable name="end"><xsl:value-of select="/nmaprun/runstats/finished/@timestr" /> </xsl:variable>
 <xsl:variable name="totaltime"><xsl:value-of select="/nmaprun/runstats/finished/@time -/nmaprun/@start" /></xsl:variable>
